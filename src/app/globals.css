@@ -1,0 +1,53 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─── Public site tokens (overridden by StyleInjector from DB) ─── */
+:root {
+  --primary-color: #1a2b3c;
+  --primary-hover: #2c3e50;
+  --secondary-color: #ffffff;
+  --main-font: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+}
+
+/* ─── Admin UI tokens (fixed — not affected by site theming) ─── */
+:root {
+  --admin-primary: #1a2b3c;
+  --admin-primary-hover: #2c3e50;
+}
+
+@theme inline {
+  --color-background: var(--secondary-color);
+  --color-foreground: #171717;
+  --font-sans: var(--main-font);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background-color: var(--secondary-color);
+  color: #171717;
+  font-family: var(--main-font);
+}
+
+/* ─── Design tokens as utility classes ─── */
+.bg-primary    { background-color: var(--primary-color); }
+.text-primary  { color: var(--primary-color); }
+.border-primary { border-color: var(--primary-color); }
+.hover\:text-primary:hover { color: var(--primary-color); }
+.hover\:border-primary:hover { border-color: var(--primary-color); }
+
+/* Admin-specific (fixed palette) */
+.bg-admin      { background-color: var(--admin-primary); }
+.bg-admin:hover { background-color: var(--admin-primary-hover); }
+.text-admin    { color: var(--admin-primary); }
+.border-admin  { border-color: var(--admin-primary); }
+.ring-admin    { --tw-ring-color: var(--admin-primary); }
+.hover\:bg-admin-hover:hover { background-color: var(--admin-primary-hover); }
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
