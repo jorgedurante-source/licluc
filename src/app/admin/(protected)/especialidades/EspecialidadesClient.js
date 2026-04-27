@@ -1,5 +1,6 @@
 'use client';
 import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import { Plus, X, Trash2, Check, Pencil } from 'lucide-react';
 import { createEspecialidad, updateEspecialidad, deleteEspecialidad } from './actions';
 
@@ -103,27 +104,29 @@ function EspecialidadForm({ inicial, onSubmit, onCancel, submitLabel }) {
   );
 }
 
-export default function EspecialidadesClient({ especialidades: inicial }) {
-  const [items, setItems] = useState(inicial);
+export default function EspecialidadesClient({ especialidades }) {
+  const router = useRouter();
   const [showNew, setShowNew] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [isPending, startTransition] = useTransition();
 
+  const refresh = () => router.refresh();
+
   const handleCreate = async (fd) => {
     const result = await createEspecialidad(fd);
-    if (!result?.error) setShowNew(false);
+    if (!result?.error) { setShowNew(false); refresh(); }
     return result;
   };
 
   const handleUpdate = (id) => async (fd) => {
     const result = await updateEspecialidad(id, fd);
-    if (!result?.error) setEditingId(null);
+    if (!result?.error) { setEditingId(null); refresh(); }
     return result;
   };
 
   const handleDelete = (id) => {
     if (!confirm('¿Eliminar esta especialidad?')) return;
-    startTransition(() => deleteEspecialidad(id));
+    startTransition(async () => { await deleteEspecialidad(id); refresh(); });
   };
 
   return (
@@ -131,7 +134,7 @@ export default function EspecialidadesClient({ especialidades: inicial }) {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-serif font-bold text-white mb-1">Especialidades</h1>
-          <p className="text-white/40 text-sm">{items.length} área{items.length !== 1 ? 's' : ''} configurada{items.length !== 1 ? 's' : ''}</p>
+          <p className="text-white/40 text-sm">{especialidades.length} área{especialidades.length !== 1 ? 's' : ''} configurada{especialidades.length !== 1 ? 's' : ''}</p>
         </div>
         <button
           onClick={() => { setShowNew(!showNew); setEditingId(null); }}
@@ -148,14 +151,14 @@ export default function EspecialidadesClient({ especialidades: inicial }) {
         </div>
       )}
 
-      {items.length === 0 && !showNew && (
+      {especialidades.length === 0 && !showNew && (
         <div className="py-20 text-center border-2 border-dashed border-white/5 rounded-2xl text-white/30 text-sm">
           No hay especialidades. Agregá la primera.
         </div>
       )}
 
       <div className="space-y-3">
-        {items.map((esp) => (
+        {especialidades.map((esp) => (
           <div key={esp.id}>
             {editingId === esp.id ? (
               <EspecialidadForm
