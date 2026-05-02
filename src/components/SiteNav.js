@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
-  { href: '/',             label: 'Home' },
+  { href: '/',             label: 'Inicio' },
   { href: '/#sobre-mi',   label: 'Sobre Mí' },
   { href: '/#especialidades', label: 'Especialidades' },
   { href: '/blog',         label: 'Blog' },
@@ -16,7 +16,6 @@ export default function SiteNav({ siteName }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close menu on route change / scroll
   useEffect(() => {
     if (!open) return;
     const close = () => setOpen(false);
@@ -25,20 +24,24 @@ export default function SiteNav({ siteName }) {
   }, [open]);
 
   return (
-    <nav aria-label="Navegación principal" className="px-6 md:px-8 py-5 flex justify-between items-center max-w-7xl mx-auto w-full sticky top-0 bg-secondary/90 backdrop-blur-md z-50 transition-colors duration-500">
+    <nav
+      aria-label="Navegación principal"
+      className="px-6 md:px-8 py-5 flex justify-between items-center max-w-7xl mx-auto w-full sticky top-0 z-50 backdrop-blur-md transition-colors duration-500"
+      style={{ backgroundColor: 'color-mix(in srgb, var(--secondary-color) 90%, transparent)' }}
+    >
       {/* Logo */}
       <Link href="/" className="text-xl md:text-2xl font-serif font-bold text-primary">
         {siteName || 'Lic. Cecilia Lucero'}
       </Link>
 
       {/* Desktop links */}
-      <div className="hidden md:flex gap-10 text-xs font-bold uppercase tracking-[0.2em] text-muted">
+      <div className="hidden md:flex items-center gap-8 text-xs font-bold uppercase tracking-[0.2em]">
         {NAV_LINKS.map(({ href, label }) => {
           const isActive = pathname === href;
           return (
-            <Link 
-              key={href} 
-              href={href} 
+            <Link
+              key={href}
+              href={href}
               aria-current={isActive ? 'page' : undefined}
               className={`py-3 transition-all hover:text-primary ${isActive ? 'text-primary' : 'text-muted'}`}
             >
@@ -46,11 +49,19 @@ export default function SiteNav({ siteName }) {
             </Link>
           );
         })}
+        {/* CTA */}
+        <Link
+          href="/#contacto"
+          className="ml-2 px-5 py-2.5 rounded-full bg-primary text-white font-bold text-xs hover:brightness-110 transition-all hover:scale-[1.02] active:scale-95"
+        >
+          Reservar turno
+        </Link>
       </div>
 
       {/* Mobile hamburger */}
       <button
-        className="md:hidden p-2 rounded-lg text-gray-500 hover:text-primary hover:bg-gray-50 transition-colors"
+        className="md:hidden p-2 rounded-lg transition-colors text-muted hover:text-primary"
+        style={{ '--hover-bg': 'color-mix(in srgb, var(--primary-color) 6%, transparent)' }}
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
         aria-controls="mobile-menu"
@@ -63,7 +74,8 @@ export default function SiteNav({ siteName }) {
       {open && (
         <div
           id="mobile-menu"
-          className="absolute top-full left-0 right-0 bg-white border-b border-gray-100 shadow-lg md:hidden"
+          className="absolute top-full left-0 right-0 border-b border-subtle shadow-lg md:hidden"
+          style={{ backgroundColor: 'var(--secondary-color)' }}
         >
           <div className="flex flex-col px-6 py-4 gap-1">
             {NAV_LINKS.map(({ href, label }) => (
@@ -71,11 +83,18 @@ export default function SiteNav({ siteName }) {
                 key={href}
                 href={href}
                 onClick={() => setOpen(false)}
-                className="py-4 text-sm font-bold uppercase tracking-widest text-gray-500 hover:text-primary border-b border-gray-50 last:border-0 transition-colors"
+                className="py-4 text-sm font-bold uppercase tracking-widest text-muted hover:text-primary border-b border-subtle last:border-0 transition-colors"
               >
                 {label}
               </Link>
             ))}
+            <Link
+              href="/#contacto"
+              onClick={() => setOpen(false)}
+              className="mt-3 py-3 text-center text-sm font-bold rounded-full bg-primary text-white hover:brightness-110 transition-all"
+            >
+              Reservar turno
+            </Link>
           </div>
         </div>
       )}

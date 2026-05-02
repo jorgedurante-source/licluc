@@ -3,10 +3,14 @@ import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 
-export const metadata = {
-  title: "Blog | Lic. Cecilia Lucero",
-  description: "Reflexiones y recursos sobre salud mental.",
-};
+export async function generateMetadata() {
+  const settingsArray = await prisma.setting.findMany();
+  const s = settingsArray.reduce((acc, curr) => { acc[curr.key] = curr.value; return acc; }, {});
+  return {
+    title: `Blog | ${s.site_name || 'Lic. Cecilia Lucero'}`,
+    description: s.site_description || "Reflexiones y recursos sobre salud mental.",
+  };
+}
 
 export default async function BlogPage() {
   const posts = await prisma.post.findMany({

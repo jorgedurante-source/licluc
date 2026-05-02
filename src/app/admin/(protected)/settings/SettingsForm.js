@@ -228,7 +228,30 @@ export default function SettingsForm({ initialSettings, initialCitas }) {
               </div>
               <div className={sectionClass}>
                 <h2 className="text-sm font-bold text-white/60 uppercase tracking-wider mb-4">Sobre Mí</h2>
-                <textarea name="sobre_mi_text" rows={6} value={settings.sobre_mi_text || ''} onChange={set('sobre_mi_text')} className={inputClass + " resize-none"} />
+                <div className="space-y-4">
+                  <div>
+                    <label className={labelClass}>Texto principal</label>
+                    <textarea name="sobre_mi_text" rows={5} value={settings.sobre_mi_text || ''} onChange={set('sobre_mi_text')} className={inputClass + " resize-none"} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Enfoque terapéutico (cita destacada)</label>
+                    <textarea name="sobre_mi_enfoque" rows={3} value={settings.sobre_mi_enfoque || ''} onChange={set('sobre_mi_enfoque')} placeholder="Ej: Mi enfoque es cognitivo-conductual, centrado en la persona..." className={inputClass + " resize-none"} />
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className={labelClass}>Matrícula profesional</label>
+                      <input name="sobre_mi_matricula" value={settings.sobre_mi_matricula || ''} onChange={set('sobre_mi_matricula')} placeholder="Ej: MN 12345" className={inputClass} />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Años de experiencia</label>
+                      <input name="sobre_mi_anos" type="number" min="0" value={settings.sobre_mi_anos || ''} onChange={set('sobre_mi_anos')} placeholder="Ej: 10" className={inputClass} />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Formación / Universidad</label>
+                      <input name="sobre_mi_formacion" value={settings.sobre_mi_formacion || ''} onChange={set('sobre_mi_formacion')} placeholder="Ej: UBA — Lic. en Psicología" className={inputClass} />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -247,6 +270,8 @@ export default function SettingsForm({ initialSettings, initialCitas }) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div><label className={labelClass}>Email profesional</label><input name="contact_email" type="email" value={settings.contact_email || ''} onChange={set('contact_email')} className={inputClass} /></div>
                   <div><label className={labelClass}>Teléfono / WhatsApp</label><input name="contact_phone" type="tel" value={settings.contact_phone || ''} onChange={set('contact_phone')} className={inputClass} /></div>
+                  <div><label className={labelClass}>Instagram (URL completa)</label><input name="site_instagram" type="url" value={settings.site_instagram || ''} onChange={set('site_instagram')} placeholder="https://instagram.com/tuusuario" className={inputClass} /></div>
+                  <div><label className={labelClass}>Descripción del sitio (SEO)</label><input name="site_description" value={settings.site_description || ''} onChange={set('site_description')} placeholder="Breve descripción para buscadores" className={inputClass} /></div>
                 </div>
               </div>
             </div>

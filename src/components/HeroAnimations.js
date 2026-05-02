@@ -47,11 +47,11 @@ export function HeroContent({ title, subtitle, children }) {
 export function HeroImage({ children }) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-      animate={{ opacity: 1, scale: 1, rotate: 3 }}
-      whileHover={{ rotate: 0, scale: 1.02 }}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ scale: 1.02 }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-      className="flex-1 relative w-full max-w-lg lg:max-w-none cursor-pointer"
+      className="flex-1 relative w-full max-w-lg lg:max-w-none"
     >
       {children}
     </motion.div>

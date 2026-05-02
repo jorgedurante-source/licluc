@@ -29,6 +29,12 @@ async function main() {
     { key: 'contacto_titulo', value: 'Empecemos a hablar' },
     { key: 'contacto_subtitulo', value: 'Estoy aquí para acompañarte en tu proceso.' },
     { key: 'hero_cita', value: 'La palabra tiene el poder de transformar el dolor en sentido.' },
+    { key: 'sobre_mi_enfoque', value: '' },
+    { key: 'sobre_mi_matricula', value: '' },
+    { key: 'sobre_mi_formacion', value: '' },
+    { key: 'sobre_mi_anos', value: '' },
+    { key: 'site_instagram', value: '' },
+    { key: 'site_description', value: 'Sitio profesional de psicología clínica y acompañamiento terapéutico.' },
   ];
 
   for (const s of defaultSettings) {
