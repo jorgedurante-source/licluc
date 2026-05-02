@@ -41,3 +41,9 @@ model Especialidad {
   icono  String @default("Heart")
   orden  Int    @default(0)
 }
+
+model Cita {
+  id     String  @id @default(cuid())
+  texto  String
+  imagen String?
+}

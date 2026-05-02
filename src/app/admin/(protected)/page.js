@@ -1,13 +1,14 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { FileText, Settings, Users, ArrowRight } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default async function AdminDashboard() {
-  const [postCount, userCount] = await Promise.all([
+  const [postCount, userCount, draftCount] = await Promise.all([
     prisma.post.count({ where: { published: true } }),
     prisma.user.count(),
+    prisma.post.count({ where: { published: false } }),
   ]);
-  const draftCount = await prisma.post.count({ where: { published: false } });
 
   const cards = [
     { label: 'Posts publicados', value: postCount,  href: '/admin/blog',     icon: FileText },
@@ -16,7 +17,7 @@ export default async function AdminDashboard() {
   ];
 
   return (
-    <div>
+    <ScrollReveal>
       <div className="mb-8">
         <h1 className="text-2xl font-serif font-bold text-white mb-1">Panel de Control</h1>
         <p className="text-white/40 text-sm">Resumen general del sitio.</p>
@@ -58,6 +59,6 @@ export default async function AdminDashboard() {
           </Link>
         </div>
       </div>
-    </div>
+    </ScrollReveal>
   );
 }

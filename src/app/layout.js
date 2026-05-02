@@ -13,15 +13,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Lic. Cecilia Lucero | Psicología Clínica",
-  description: "Sitio profesional de la Lic. Cecilia Lucero. Especialista en psicología clínica y acompañamiento terapéutico.",
-};
+import prisma from "@/lib/prisma";
+
+export async function generateMetadata() {
+  const settingsArray = await prisma.setting.findMany();
+  const s = settingsArray.reduce((acc, curr) => { acc[curr.key] = curr.value; return acc; }, {});
+  
+  return {
+    title: {
+      template: `%s | ${s.site_name || "Lic. Cecilia Lucero"}`,
+      default: s.site_name || "Lic. Cecilia Lucero",
+    },
+    description: s.site_description || "Sitio profesional de psicología clínica y acompañamiento terapéutico.",
+  };
+}
 
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>

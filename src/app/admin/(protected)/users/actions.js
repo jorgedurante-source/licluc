@@ -56,3 +56,38 @@ export async function changeUserRole(id, role) {
   revalidatePath('/admin/users');
   return { ok: true };
 }
+
+export async function updateUser(id, formData) {
+  await requireSuperAdmin();
+
+  const name = formData.get('name');
+  const username = formData.get('username');
+  const password = formData.get('password');
+  const role = formData.get('role');
+
+  const data = { name, username, role };
+
+  // If password is provided, hash it and add to update data
+  if (password && password.trim() !== '') {
+    data.password = bcrypt.hashSync(password, 10);
+  }
+
+  // Check if username is taken by another user
+  if (username) {
+    const existing = await prisma.user.findFirst({
+      where: {
+        username,
+        id: { not: id }
+      }
+    });
+    if (existing) return { error: 'Ya existe otro usuario con ese nombre' };
+  }
+
+  await prisma.user.update({
+    where: { id },
+    data
+  });
+
+  revalidatePath('/admin/users');
+  return { ok: true };
+}

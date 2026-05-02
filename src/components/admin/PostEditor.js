@@ -14,8 +14,9 @@ function ToolbarBtn({ onClick, active, title, children }) {
       type="button"
       onClick={onClick}
       title={title}
-      className={`p-1.5 rounded transition-colors ${
-        active ? 'bg-white/20 text-white' : 'text-white/40 hover:text-white/80 hover:bg-white/10'
+      aria-label={title}
+      className={`p-2 rounded-md transition-all ${
+        active ? 'bg-white/10 text-white' : 'text-white/20 hover:text-white/60 hover:bg-white/5'
       }`}
     >
       {children}
@@ -97,7 +98,8 @@ export default function PostEditor({ post, action }) {
         value={title}
         onChange={e => setTitle(e.target.value)}
         placeholder="Título del artículo..."
-        className="w-full bg-transparent text-3xl font-serif font-bold text-white placeholder-white/20 border-none outline-none resize-none"
+        aria-label="Título del artículo"
+        className="w-full bg-transparent text-3xl font-serif font-bold text-white placeholder-white/10 border-none outline-none resize-none"
         required
       />
 
@@ -106,8 +108,9 @@ export default function PostEditor({ post, action }) {
         value={excerpt}
         onChange={e => setExcerpt(e.target.value)}
         placeholder="Resumen breve (aparece en la portada del blog)..."
+        aria-label="Resumen o extracto"
         rows={2}
-        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 text-sm text-white/70 placeholder-white/20 outline-none focus:border-white/15 transition-colors resize-none"
+        className="w-full bg-white/5 border border-white/5 rounded-lg px-4 py-3 text-sm text-white/60 placeholder-white/10 outline-none focus:border-white/10 transition-colors resize-none"
       />
 
       {/* Editor */}

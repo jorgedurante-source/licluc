@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -31,7 +32,12 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0f1117]">
-      <div className="w-full max-w-sm px-6">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-sm px-6"
+      >
         <div className="mb-10 text-center">
           <h1 className="text-2xl font-serif font-bold text-white mb-1">Cecilia Lucero</h1>
           <p className="text-white/30 text-sm">Panel de administración</p>
@@ -89,7 +95,7 @@ export default function LoginPage() {
         <p className="text-center text-white/20 text-xs mt-8">
           © {new Date().getFullYear()} Cecilia Lucero
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }
