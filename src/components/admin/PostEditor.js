@@ -2,9 +2,11 @@
 import { useState, useTransition } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import TextAlign from '@tiptap/extension-text-align';
 import {
   Bold, Italic, List, ListOrdered, Heading2, Heading3,
-  Quote, Minus, Undo, Redo, Eye, EyeOff, Save, ArrowLeft
+  Quote, Minus, Undo, Redo, Eye, EyeOff, Save, ArrowLeft,
+  AlignLeft, AlignCenter, AlignRight, AlignJustify
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -33,7 +35,10 @@ export default function PostEditor({ post, action }) {
 
   const editor = useEditor({
     immediatelyRender: false,
-    extensions: [StarterKit],
+    extensions: [
+      StarterKit,
+      TextAlign.configure({ types: ['heading', 'paragraph'] }),
+    ],
     content: post?.content || '',
     editorProps: {
       attributes: {
@@ -142,6 +147,19 @@ export default function PostEditor({ post, action }) {
           </ToolbarBtn>
           <ToolbarBtn onClick={() => editor?.chain().focus().setHorizontalRule().run()} title="Separador">
             <Minus size={15} />
+          </ToolbarBtn>
+          <div className="w-px h-4 bg-white/10 mx-1" />
+          <ToolbarBtn onClick={() => editor?.chain().focus().setTextAlign('left').run()} active={editor?.isActive({ textAlign: 'left' })} title="Alinear izquierda">
+            <AlignLeft size={15} />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor?.chain().focus().setTextAlign('center').run()} active={editor?.isActive({ textAlign: 'center' })} title="Centrar">
+            <AlignCenter size={15} />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor?.chain().focus().setTextAlign('right').run()} active={editor?.isActive({ textAlign: 'right' })} title="Alinear derecha">
+            <AlignRight size={15} />
+          </ToolbarBtn>
+          <ToolbarBtn onClick={() => editor?.chain().focus().setTextAlign('justify').run()} active={editor?.isActive({ textAlign: 'justify' })} title="Justificar">
+            <AlignJustify size={15} />
           </ToolbarBtn>
           <div className="w-px h-4 bg-white/10 mx-1" />
           <ToolbarBtn onClick={() => editor?.chain().focus().undo().run()} title="Deshacer">

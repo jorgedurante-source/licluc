@@ -9,10 +9,10 @@ async function main() {
   // 1. Crear usuario administrador (usando upsert para no duplicar ni borrar)
   const adminPassword = bcrypt.hashSync('admin123', 10);
   await prisma.user.upsert({
-    where: { username: 'cecilia' },
+    where: { username: 'admin' },
     update: {},
     create: {
-      username: 'cecilia',
+      username: 'admin',
       name: 'Cecilia Lucero',
       password: adminPassword,
       role: 'superadmin',
