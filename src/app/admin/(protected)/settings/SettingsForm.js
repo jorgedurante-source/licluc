@@ -4,6 +4,7 @@ import { saveSettings } from './actions';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Palette, FileText, Phone, Check, Quote, Plus, Trash2, Pencil, X } from 'lucide-react';
 import { addCita, deleteCita, updateCita } from '../citas/actions';
+import MiniEditor from '@/components/admin/MiniEditor';
 
 const TABS = [
   { id: 'diseno',   label: 'Diseño',    icon: Palette },
@@ -47,6 +48,7 @@ export default function SettingsForm({ initialSettings, initialCitas }) {
   const [saved, setSaved] = useState(false);
 
   const set = (key) => (e) => setSettings({ ...settings, [key]: e.target.value });
+  const setRich = (key) => (html) => setSettings((prev) => ({ ...prev, [key]: html }));
 
   const applyPreset = (preset) => {
     setSettings({ ...settings, theme_primary: preset.primary, theme_secondary: preset.secondary, theme_font: preset.font });
@@ -220,10 +222,10 @@ export default function SettingsForm({ initialSettings, initialCitas }) {
                 <h2 className="text-sm font-bold text-white/60 uppercase tracking-wider mb-6">Textos del Hero</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
-                    <div><label className={labelClass}>Título principal</label><input name="home_hero_title" value={settings.home_hero_title || ''} onChange={set('home_hero_title')} className={inputClass} /></div>
-                    <div><label className={labelClass}>Cita por defecto</label><input name="hero_cita" value={settings.hero_cita || ''} onChange={set('hero_cita')} className={inputClass} /></div>
+                    <div><label className={labelClass}>Título principal</label><MiniEditor value={settings.home_hero_title || ''} onChange={setRich('home_hero_title')} rows={2} /></div>
+                    <div><label className={labelClass}>Cita por defecto</label><MiniEditor value={settings.hero_cita || ''} onChange={setRich('hero_cita')} rows={2} /></div>
                   </div>
-                  <div><label className={labelClass}>Subtítulo</label><textarea name="home_hero_subtitle" rows={5} value={settings.home_hero_subtitle || ''} onChange={set('home_hero_subtitle')} className={inputClass + " resize-none"} /></div>
+                  <div><label className={labelClass}>Subtítulo</label><MiniEditor value={settings.home_hero_subtitle || ''} onChange={setRich('home_hero_subtitle')} rows={5} /></div>
                 </div>
               </div>
               <div className={sectionClass}>
@@ -231,11 +233,11 @@ export default function SettingsForm({ initialSettings, initialCitas }) {
                 <div className="space-y-4">
                   <div>
                     <label className={labelClass}>Texto principal</label>
-                    <textarea name="sobre_mi_text" rows={5} value={settings.sobre_mi_text || ''} onChange={set('sobre_mi_text')} className={inputClass + " resize-none"} />
+                    <MiniEditor value={settings.sobre_mi_text || ''} onChange={setRich('sobre_mi_text')} rows={5} />
                   </div>
                   <div>
                     <label className={labelClass}>Enfoque terapéutico (cita destacada)</label>
-                    <textarea name="sobre_mi_enfoque" rows={3} value={settings.sobre_mi_enfoque || ''} onChange={set('sobre_mi_enfoque')} placeholder="Ej: Mi enfoque es cognitivo-conductual, centrado en la persona..." className={inputClass + " resize-none"} />
+                    <MiniEditor value={settings.sobre_mi_enfoque || ''} onChange={setRich('sobre_mi_enfoque')} rows={3} />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
@@ -261,8 +263,8 @@ export default function SettingsForm({ initialSettings, initialCitas }) {
               <div className={sectionClass}>
                 <h2 className="text-sm font-bold text-white/60 uppercase tracking-wider mb-6">Sección de Contacto</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div><label className={labelClass}>Título</label><input name="contacto_titulo" value={settings.contacto_titulo || ''} onChange={set('contacto_titulo')} className={inputClass} /></div>
-                  <div><label className={labelClass}>Subtítulo</label><input name="contacto_subtitulo" value={settings.contacto_subtitulo || ''} onChange={set('contacto_subtitulo')} className={inputClass} /></div>
+                  <div><label className={labelClass}>Título</label><MiniEditor value={settings.contacto_titulo || ''} onChange={setRich('contacto_titulo')} rows={2} /></div>
+                  <div><label className={labelClass}>Subtítulo</label><MiniEditor value={settings.contacto_subtitulo || ''} onChange={setRich('contacto_subtitulo')} rows={2} /></div>
                 </div>
               </div>
               <div className={sectionClass}>

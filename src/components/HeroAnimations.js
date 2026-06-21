@@ -25,18 +25,16 @@ export function HeroContent({ title, subtitle, children }) {
       animate="show"
       className="flex-1 text-center lg:text-left"
     >
-      <motion.h1 
+      <motion.div
         variants={item}
-        className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-[1.1] text-primary"
-      >
-        {title}
-      </motion.h1>
-      <motion.p 
+        className="text-5xl md:text-7xl font-serif font-bold mb-8 leading-[1.1] text-primary [&_p]:m-0"
+        dangerouslySetInnerHTML={{ __html: title }}
+      />
+      <motion.div
         variants={item}
-        className="text-xl mb-10 max-w-xl leading-relaxed mx-auto lg:mx-0 text-muted"
-      >
-        {subtitle}
-      </motion.p>
+        className="text-xl mb-10 max-w-xl leading-relaxed mx-auto lg:mx-0 text-muted [&_p]:m-0"
+        dangerouslySetInnerHTML={{ __html: subtitle }}
+      />
       <motion.div variants={item}>
         {children}
       </motion.div>

@@ -6,9 +6,9 @@ export async function saveSettings(formData) {
   const keys = [
     'theme_primary', 'theme_secondary', 'theme_font', 'site_name',
     'home_hero_title', 'home_hero_subtitle', 'hero_cita',
-    'sobre_mi_text',
+    'sobre_mi_text', 'sobre_mi_enfoque', 'sobre_mi_matricula', 'sobre_mi_anos', 'sobre_mi_formacion',
     'contacto_titulo', 'contacto_subtitulo',
-    'contact_email', 'contact_phone',
+    'contact_email', 'contact_phone', 'site_instagram', 'site_description',
   ];
   
   for (const key of keys) {

@@ -87,13 +87,9 @@ export default async function Home() {
               <div className="flex-1">
                 <div aria-hidden="true" className="w-16 h-1 bg-primary mb-10" />
                 <h2 id="sobre-mi-title" className="text-4xl font-serif font-bold mb-8 text-primary">Sobre Mí</h2>
-                <p className="text-xl leading-loose text-muted">
-                  {s.sobre_mi_text || 'Soy la Licenciada Cecilia Lucero, dedicada a brindar un espacio de escucha segura y profesional.'}
-                </p>
+                <div className="text-xl leading-loose text-muted [&_p]:m-0 [&_p]:mb-4" dangerouslySetInnerHTML={{ __html: s.sobre_mi_text || 'Soy la Licenciada Cecilia Lucero, dedicada a brindar un espacio de escucha segura y profesional.' }} />
                 {s.sobre_mi_enfoque && (
-                  <p className="mt-6 text-lg leading-relaxed text-muted italic border-l-4 pl-6" style={{ borderColor: 'var(--primary-color)' }}>
-                    {s.sobre_mi_enfoque}
-                  </p>
+                  <div className="mt-6 text-lg leading-relaxed text-muted italic border-l-4 pl-6 [&_p]:m-0" style={{ borderColor: 'var(--primary-color)' }} dangerouslySetInnerHTML={{ __html: s.sobre_mi_enfoque }} />
                 )}
               </div>
               {/* Credenciales */}
@@ -186,12 +182,8 @@ export default async function Home() {
           <div className="bg-primary text-white p-12 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden">
             <div aria-hidden="true" className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32" />
             <div className="relative z-10">
-              <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4 text-center">
-                {s.contacto_titulo || 'Empecemos a hablar'}
-              </h2>
-              <p className="text-lg md:text-xl mb-2 opacity-80 text-center">
-                {s.contacto_subtitulo || 'Estoy aquí para acompañarte en tu proceso.'}
-              </p>
+              <div className="text-4xl md:text-5xl font-serif font-bold mb-4 text-center [&_p]:m-0" dangerouslySetInnerHTML={{ __html: s.contacto_titulo || 'Empecemos a hablar' }} />
+              <div className="text-lg md:text-xl mb-2 opacity-80 text-center [&_p]:m-0" dangerouslySetInnerHTML={{ __html: s.contacto_subtitulo || 'Estoy aquí para acompañarte en tu proceso.' }} />
 
               {/* Datos directos */}
               {(s.contact_email || s.contact_phone) && (
